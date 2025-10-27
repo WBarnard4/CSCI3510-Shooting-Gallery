@@ -9,11 +9,11 @@ public class Target : MonoBehaviour
     public float effectDuration = 0.1f;
     public AudioClip hitSound;
 
-    //protected Effect effectScript;
+    protected Effect effectScript;
 
     private void Awake()
     {
-        //effectScript = effectsManager.getComponent<Effect>();
+        effectScript = effectsManager.GetComponent<Effect>();
     }
 
     public virtual void Process(RaycastHit hit)
