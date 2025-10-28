@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Target
+  - CinemachineTarget
+  - Fire
+  - RangeTarget
   layers:
   - Default
   - TransparentFX

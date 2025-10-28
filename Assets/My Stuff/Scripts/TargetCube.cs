@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TargetCube : Target
@@ -21,8 +23,13 @@ public class TargetCube : Target
             }
             else
             {
+                quaternion origRotation = transform.rotation;
                 rotationOn = false;
-                target.transform.rotation = Quaternion.Euler(0, 0, 0);
+                // target.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+                //updated code, results in the cube rotating to its original rotation position
+                target.transform.rotation = origRotation;
+
             }
         }
     }
@@ -43,8 +50,24 @@ public class TargetCube : Target
         if (gameObject.tag == "Target")
         {
             Rotate(rotationAmount);
+            effectScript.Play(hit, hitSound, hitEffect, effectDuration);
+
+        }
+        else if (gameObject.tag == "RangeTarget")
+        {
+            StartCoroutine(DisableRangeTarget(hit));
+
         }
 
-        effectScript.Play(hit, hitSound, hitEffect, effectDuration);
     }
+
+    IEnumerator DisableRangeTarget(RaycastHit hit)
+    {
+        Rotate(rotationAmount);
+        effectScript.Play(hit, hitSound, hitEffect, effectDuration);
+        yield return new WaitForSeconds(1f);
+        transform.parent.gameObject.SetActive(false);
+    }
+
+
 }
